@@ -1,9 +1,10 @@
 from selenium import webdriver
 from pyvirtualdisplay import Display
 
-driver = webdriver.Chrome()
+# add following two lines code before start the webdriver
 display = Display(visible=0, size=(800, 800))  
 display.start()
+driver = webdriver.Chrome()
 driver.get("http://www.baidu.com")
 driver.quit()
 driver.stop()

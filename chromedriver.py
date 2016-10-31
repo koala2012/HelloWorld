@@ -12,7 +12,7 @@ from xvfbwrapper import Xvfb
 driver = webdriver.Firefox()
 driver.get('http://www.baidu.com');
 time.sleep(5) # Let the user actually see something!
-search_box = driver.find_element_by_name('q')
+search_box = driver.find_element_by_name('wd')
 search_box.send_keys('ChromeDriver')
 search_box.submit()
 time.sleep(5) # Let the user actually see something!

@@ -5,8 +5,8 @@ from pyvirtualdisplay import Display
 from xvfbwrapper import Xvfb
 
 # display = Display(visible=0, size=(800, 600))
-xf = Xvfb()  #  xf = Xvfb(1920, 1080) - will create virtual display with 1920x1080 size
-xf.start()
+# xf = Xvfb()  #  xf = Xvfb(1920, 1080) - will create virtual display with 1920x1080 size
+# xf.start()
 # display.start()
 # driver = webdriver.Chrome('/usr/bin/chromedriver')  # Optional argument, if not specified will search path.
 driver = webdriver.Firefox()

@@ -54,6 +54,7 @@ import sys
 class ConvertSentence():
     
     def __init__(self):
+        print('this is a test')
         pass
     
     def convert_word(self, input_str):

@@ -1,22 +1,60 @@
-workspace:
-  base: /go
-  path: src/github.com/koala2012/HelloWorld
-
-clone:
-  git:
-    image: plugins/git
-    depth: 50
-    tags: true
-
 pipeline:
-    docker-package:
-      image: docker:17.05.0-ce-dind
-      environment:
-        - DOCKER_HOST=tcp://docker:2375
-      commands:
-        - sleep 5
-        - docker ps
-        
+  # this code will create a dummy Dockerfile. This is just
+  # here so that our yaml file is self-contained.
+  setup:
+    image: golang
+    commands:
+      - |
+        cat <<EOF > index.html
+        hello world
+        EOF
+      - |
+        cat <<EOF > Dockerfile
+        FROM busybox
+        ADD index.html /www/index.html
+        EXPOSE 8000
+        CMD httpd -p 8000 -h /www; tail -f /dev/null
+        EOF
+
+  build:
+    image: docker:17.05.0-ce-dind
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+    commands:
+      - sleep 5
+      - docker ps
+      - docker build -t hello-world .
+  
+  # start the container using a detached (non-blocking)
+  # step. Bonus we can see our container logs in the
+  # build output.
+  run:
+    image: docker:17.05.0-ce-dind
+    detach: true
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+    commands:
+      - docker run -p 8000:8000 hello-world
+
+  # this container just runs a docker ps to verify
+  # our container is running. Just for demo purposes,
+  # not really needed.
+  check_running:
+    image: docker:17.05.0-ce-dind
+    environment:
+      - DOCKER_HOST=tcp://docker:2375
+    commands:
+      - sleep 5
+      - docker ps
+
+  # curl the container to test it is up and running.
+  # notice that we use `docker:8000` since the container
+  # is running in the docker service container.
+  test:
+    image: golang # because I know it has curl installed
+    commands:
+      - curl -v http://docker:8000
+
 services:
   docker:
     image: docker:17.05.0-ce-dind

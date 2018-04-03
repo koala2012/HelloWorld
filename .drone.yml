@@ -1,6 +1,10 @@
+workspace:
+  base: /go
+  path: src/github.com/koala2012/HelloWorld
+
 clone:
   git:
-    image: plugins-git
+    image: plugins/git
     depth: 50
     tags: true
 

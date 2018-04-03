@@ -11,5 +11,8 @@ clone:
 pipeline:
     docker-package:
       image: docker:dind
+      volumes:
+        - /usr/bin/docker:/usr/bin/docker
+        - /var/run/docker.sock:/var/run/docker.sock
       commands:
         - docker info

@@ -12,4 +12,4 @@ pipeline:
     docker-package:
       image: docker:dind
       commands:
-        - docker version
+        - docker info

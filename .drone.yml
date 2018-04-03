@@ -1,0 +1,11 @@
+clone:
+  git:
+    image: plugins-git
+    depth: 50
+    tags: true
+
+pipeline:
+    docker-package:
+      image: docker:dind
+      commands:
+        - docker version

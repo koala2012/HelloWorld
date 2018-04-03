@@ -11,6 +11,7 @@ clone:
 pipeline:
     docker-package:
       image: docker:dind
+      debug: true
       volumes:
         - /usr/bin/docker:/usr/bin/docker
         - /var/run/docker.sock:/var/run/docker.sock
